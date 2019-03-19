@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chicken", "Chicken\Chicken.csproj", "{980E7B62-5C9E-47DB-9CDF-013C16D975AF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FirstSolution", "FirstSolution", "{BF4C73EA-A22F-4A52-BCAF-23F8BCB29637}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chicken", "FirstSolution\Chicken\Chicken.csproj", "{980E7B62-5C9E-47DB-9CDF-013C16D975AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SecondSolution", "SecondSolution", "{B3E43BC5-8189-48CF-B693-3760295168FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Farm", "SecondSolution\Farm\Farm.csproj", "{0C9632B6-9921-4170-AC53-053859C33AEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +21,17 @@ Global
 		{980E7B62-5C9E-47DB-9CDF-013C16D975AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{980E7B62-5C9E-47DB-9CDF-013C16D975AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{980E7B62-5C9E-47DB-9CDF-013C16D975AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C9632B6-9921-4170-AC53-053859C33AEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C9632B6-9921-4170-AC53-053859C33AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C9632B6-9921-4170-AC53-053859C33AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C9632B6-9921-4170-AC53-053859C33AEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{980E7B62-5C9E-47DB-9CDF-013C16D975AF} = {BF4C73EA-A22F-4A52-BCAF-23F8BCB29637}
+		{0C9632B6-9921-4170-AC53-053859C33AEE} = {B3E43BC5-8189-48CF-B693-3760295168FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FEF9B9D7-7B4B-4AC0-911C-5EA95090778B}
