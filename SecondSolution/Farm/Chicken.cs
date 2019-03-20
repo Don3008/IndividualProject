@@ -9,9 +9,12 @@ namespace Farm
     class Chicken
     {
         private readonly int maxHealth = 5;
+        private const int initialHealth = 3;
+        private const int initialQuantityEggs = 0;
+        private bool isAlive = true;
 
         public int Eggs { get; private set; }
-        public bool IsLive { get; private set; }
+        public bool IsAlive { get; private set; }
         public int Health { get; private set; }
         public int MaxHealth
         {
@@ -27,8 +30,9 @@ namespace Farm
 
         public Chicken()
         {
-            Health = 3;
-            Eggs = 0;
+            IsAlive = isAlive;
+            Health = initialHealth;
+            Eggs = initialQuantityEggs;
         }
 
         public void Eat(int forage)
@@ -36,6 +40,7 @@ namespace Farm
             Health += forage;
             Console.WriteLine("Здоровье курицы после еды {0}", Health);
             MakeEgg(forage);
+            Console.WriteLine("Оставшихся яиц у курицы: {0}", Eggs);
         }
 
         public void MakeEgg(int forage)
@@ -48,19 +53,19 @@ namespace Farm
             Eggs--;
         }
 
-        public bool Death()
+        public bool IsAliveChicken()
         {
             Health--;
             if (Health <= 0)
             {
                 Console.WriteLine("Курица умерла:(");
-                IsLive = false;
+                IsAlive = false;
             }
             else
             {
-                IsLive = true;
+                IsAlive = true;
             }
-            return IsLive;
+            return IsAlive;
         }
     }
 }

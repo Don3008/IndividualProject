@@ -14,19 +14,19 @@ namespace Farm
     }
     class Game
     {
-        static Chicken chicken = new Chicken();
         static int sumOfEggs;
 
         static void Main(string[] args)
         {
+            Chicken chicken = new Chicken();
             bool isAlive = true;
             Console.WriteLine("Игра Ферма");
             while (isAlive)
             {
                 Welcome();
                 int input = Input();
-                ChooseAction(input);
-                isAlive = chicken.Death();
+                ChooseAction(input, chicken);
+                isAlive = chicken.IsAliveChicken();
                 Console.WriteLine($"У вас {sumOfEggs} яиц");
             }
         }
@@ -44,20 +44,21 @@ namespace Farm
             return input;
         }
 
-        static void ChooseAction(int input)
+        static void ChooseAction(int input, Chicken chicken)
         {
+            Console.WriteLine("Текущее здоровье курицы: {0} из {1}", chicken.Health, chicken.MaxHealth);
             Action action;
             action = (Action)input;
             switch (action)
             {
                 case Action.Feed:
-                    Feed();
+                    Feed(chicken);
                     break;
                 case Action.TakeEgg:
-                    TakeEgg();
+                    TakeEgg(chicken);
                     break;
                 case Action.DoNothing:
-                    DoNothing();
+                    DoNothing(chicken);
                     break;
                 default:
                     Console.WriteLine("Такого действия не существует!");
@@ -65,9 +66,8 @@ namespace Farm
             }
         }
 
-        static void Feed()
+        static void Feed(Chicken chicken)
         {
-            Console.WriteLine("Текущее здоровье курицы: {0} из {1}", chicken.Health, chicken.MaxHealth);
             int maxForage = chicken.MaxHealth - chicken.Health;
             Console.WriteLine("Вы можете покормить курицу на: ");
             for (int i = maxForage; i > 0; i--)
@@ -89,7 +89,7 @@ namespace Farm
             }
         }
 
-        static void TakeEgg()
+        static void TakeEgg(Chicken chicken)
         {
             if (chicken.Eggs > 0)
             {
@@ -102,13 +102,11 @@ namespace Farm
             {
                 Console.WriteLine("Курица еще не снесла ни одного яйца");
             }
-            Console.WriteLine("Здоровье курицы: {0} ед.", chicken.Health);
         }
 
-        static void DoNothing()
+        static void DoNothing(Chicken chicken)
         {
             Console.WriteLine("Курим в сторонке...");
-            Console.WriteLine("Здоровье курицы: {0} ед.", chicken.Health);
         }
     }
 }
