@@ -12,53 +12,60 @@ namespace Farm
         TakeEgg,
         DoNothing
     }
-    class Game
+    class PlayForChicken : IGame
     {
-        static int sumOfEggs;
-
-        static void Main(string[] args)
+        int sumOfEggs;
+        Chicken chicken = new Chicken();
+        public void Game()
         {
-            Chicken chicken = new Chicken();
             bool isAlive = true;
-            Console.WriteLine("Игра Ферма");
-            while (isAlive)
-            {
+            //while (isAlive)
+            //{
                 Welcome();
                 int input = Input();
-                ChooseAction(input, chicken);
-                isAlive = chicken.IsAliveChicken();
-                Console.WriteLine($"У вас {sumOfEggs} яиц");
+                ChooseAction(input);
+                isAlive = chicken.IsAliveMethod();
+            if (!isAlive)
+            {
+                throw new Exception("Курица мертва");
             }
+            Console.WriteLine($"У вас {sumOfEggs} яиц");
+            //}
         }
 
-        static void Welcome()
+        //static void ChooseChicken()
+        //    {
+                
+        //    }
+          
+        public void Welcome()
         {
             Console.WriteLine("Выберете действие: \n {0} - Покормить \n {1} - Забрать яйцо" +
             "\n {2} - Ничего не делать", (int)Action.Feed, (int)Action.TakeEgg,
             (int)Action.DoNothing);
         }
 
-        static int Input()
+        public int Input()
         {
             int input = int.Parse(Console.ReadLine());
             return input;
         }
 
-        static void ChooseAction(int input, Chicken chicken)
+        public void ChooseAction(int input)
         {
-            Console.WriteLine("Текущее здоровье курицы: {0} из {1}", chicken.Health, chicken.MaxHealth);
+            Console.WriteLine("Текущее здоровье курицы: {0} из {1}", chicken.CurrentHealth, chicken.MaxHealth);
             Action action;
             action = (Action)input;
             switch (action)
             {
                 case Action.Feed:
-                    Feed(chicken);
+                    Feed();
                     break;
                 case Action.TakeEgg:
-                    TakeEgg(chicken);
+                    TakeEgg();
                     break;
                 case Action.DoNothing:
-                    DoNothing(chicken);
+                    DoNothing();
                     break;
                 default:
                     Console.WriteLine("Такого действия не существует!");
@@ -66,9 +73,9 @@ namespace Farm
             }
         }
 
-        static void Feed(Chicken chicken)
+        public void Feed()
         {
-            int maxForage = chicken.MaxHealth - chicken.Health;
+            int maxForage = chicken.MaxHealth - chicken.CurrentHealth;
             Console.WriteLine("Вы можете покормить курицу на: ");
             for (int i = maxForage; i > 0; i--)
             {
@@ -89,7 +96,7 @@ namespace Farm
             }
         }
 
-        static void TakeEgg(Chicken chicken)
+        void TakeEgg()
         {
             if (chicken.Eggs > 0)
             {
@@ -104,7 +111,7 @@ namespace Farm
             }
         }
 
-        static void DoNothing(Chicken chicken)
+        public void DoNothing()
         {
             Console.WriteLine("Курим в сторонке...");
         }

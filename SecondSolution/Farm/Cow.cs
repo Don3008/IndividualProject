@@ -4,46 +4,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Farm
+namespace Farm 
 {
-    class Chicken : Animal
+    class Cow : Animal
     {
-        private readonly int maxHealth = 5;
-        private const int initialHealth = 3;
-        private const int initialQuantityEggs = 0;
+        private readonly int maxHealth = 7;
+        private const int initialHealth = 4;
+        private const int initialQuantityMilk = 0;
         private const bool isAlive = true;
 
-        public int Eggs { get; private set; }
-        public override bool IsAlive { get; set; }
+        public int Milk { get; private set; }
         public override int CurrentHealth { get; set; }
-        public override int InitialHealth { get; set; }
         public override int MaxHealth { get; set; }
+        public override int InitialHealth { get; set; }
+        public override bool IsAlive { get; set; }
 
-        public Chicken()
+        public Cow()
         {
             MaxHealth = maxHealth;
             InitialHealth = initialHealth;
             IsAlive = isAlive;
             CurrentHealth = initialHealth;
-            Eggs = initialQuantityEggs;
+            Milk = initialQuantityMilk;
         }
 
         public override void Eat(int forage)
         {
             CurrentHealth += forage;
-            Console.WriteLine("Здоровье курицы после еды {0}", CurrentHealth);
-            MakeEgg(forage);
-            Console.WriteLine("Оставшихся яиц у курицы: {0}", Eggs);
+            Console.WriteLine($"Здоровье коровы после еды {CurrentHealth}");
+            MakeMilk(forage);
+            Console.WriteLine($"Оставшегося молока у коровы {Milk}");
+
         }
 
-        private void MakeEgg(int forage)
+        private void MakeMilk(int forage)
         {
-            Eggs += forage;
+            Milk += forage;
         }
 
-        public void GiveEgg()
+        public void GiveMilk()
         {
-            Eggs--;
+            Milk--;
         }
 
         public override bool IsAliveMethod()
@@ -51,7 +52,7 @@ namespace Farm
             CurrentHealth--;
             if (CurrentHealth <= 0)
             {
-                Console.WriteLine("Курица умерла:(");
+                Console.WriteLine("Корова умерла:(");
                 IsAlive = false;
             }
             return IsAlive;
