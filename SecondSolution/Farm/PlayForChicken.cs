@@ -15,16 +15,18 @@ namespace Farm
     class PlayForChicken : IGame
     {
         int sumOfEggs;
-        Chicken chicken = new Chicken();
+        List<Chicken> chicken = new List<Chicken>();
         public void Game()
         {
             bool isAlive = true;
             //while (isAlive)
             //{
-                Welcome();
-                int input = Input();
-                ChooseAction(input);
-                isAlive = chicken.IsAliveMethod();
+            Welcome();
+            int input = Input();
+            
+            chicken = CreateChickens();
+            ChooseAction(input);
+            isAlive = chicken.IsAliveMethod();
             if (!isAlive)
             {
                 throw new Exception("Курица мертва");
@@ -33,11 +35,20 @@ namespace Farm
             //}
         }
 
+        public Chicken CreateChicken()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                chicken.Add(new Chicken());
+            }
+            return chicken;
+        }
+
         //static void ChooseChicken()
         //    {
-                
+
         //    }
-          
+
         public void Welcome()
         {
             Console.WriteLine("Выберете действие: \n {0} - Покормить \n {1} - Забрать яйцо" +
