@@ -14,9 +14,9 @@ namespace Farm
 
         int Input();
 
-        void ChooseAction(int input);
+        void ChooseAction(int input, Animal animal);
 
-        void Feed();
+        void Feed(Animal animal);
 
         void DoNothing();
     }

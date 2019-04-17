@@ -13,27 +13,27 @@ namespace Farm
         private const int initialQuantityEggs = 0;
         private const bool isAlive = true;
 
+        public string Name { get; private set; }
         public int Eggs { get; private set; }
         public override bool IsAlive { get; set; }
         public override int CurrentHealth { get; set; }
         public override int InitialHealth { get; set; }
         public override int MaxHealth { get; set; }
 
-        public Chicken()
+        public Chicken(string name)
         {
             MaxHealth = maxHealth;
             InitialHealth = initialHealth;
             IsAlive = isAlive;
             CurrentHealth = initialHealth;
             Eggs = initialQuantityEggs;
+            Name = name;
         }
 
         public override void Eat(int forage)
         {
             CurrentHealth += forage;
-            Console.WriteLine("Здоровье курицы после еды {0}", CurrentHealth);
             MakeEgg(forage);
-            Console.WriteLine("Оставшихся яиц у курицы: {0}", Eggs);
         }
 
         private void MakeEgg(int forage)
@@ -51,10 +51,14 @@ namespace Farm
             CurrentHealth--;
             if (CurrentHealth <= 0)
             {
-                Console.WriteLine("Курица умерла:(");
                 IsAlive = false;
             }
             return IsAlive;
+        }
+
+        public override string State()
+        {
+            return String.Format("Здоровье курицы: {0} из {1}\nЯиц у курицы: {2}", CurrentHealth, MaxHealth, Eggs);
         }
     }
 }

@@ -15,25 +15,50 @@ namespace Farm
 
     class PlayForCow : IGame
     {
-        Cow cow = new Cow();
-
         int sumOfMilk;
+        public List<Cow> cows = new List<Cow>();
+        string[] names = new string[] { "Му-му", "Милка", "Буренка" };
+
+        public PlayForCow()
+        {
+            CreateCow();
+        }
 
         public void Game()
         {
-            bool isAlive;
-            //while(isAlive)
-            //{
-                Welcome();
-                int input = Input();
-                ChooseAction(input);
-                isAlive = cow.IsAliveMethod();
-                if (!isAlive)
-                {
-                throw new Exception("Корова мертва");
-                }
-                Console.WriteLine($"У вас {sumOfMilk} молока");
-            //}
+            Cow cow = ChooseCow();
+            Console.WriteLine(cow.State());
+            bool isAlive = true;
+            Welcome();
+            int input = Input();
+            ChooseAction(input, cow);
+            isAlive = cow.IsAliveMethod();
+            if (!isAlive)
+            {
+                cows.Remove(cow);
+            }
+        }
+
+        public void CreateCow()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                cows.Add(new Cow(names[i]));
+            }
+        }
+
+        public Cow ChooseCow()
+        {
+            Console.WriteLine("Выберете курицу");
+            int count = 1;
+            foreach (Cow cow1 in cows)
+            {
+                Console.WriteLine($"{count}. {cow1.Name}.");
+                count++;
+            }
+            int index = int.Parse(Console.ReadLine());
+            Cow cow = cows[index - 1];
+            return cow;
         }
 
         public void Welcome()
@@ -49,20 +74,19 @@ namespace Farm
             return input;
         }
 
-        public void ChooseAction(int input)
+        public void ChooseAction(int input, Animal cow)
         {
-            Console.WriteLine("Текущее здоровье коровы: {0} из {1}", cow.CurrentHealth, cow.MaxHealth);
-            Action action;
-            action = (Action)input;
+            ActionForCow action;
+            action = (ActionForCow)input;
             switch (action)
             {
-                case Action.Feed:
-                    Feed();
+                case ActionForCow.Feed:
+                    Feed(cow);
                     break;
-                case Action.TakeEgg:
-                    TakeMilk();
+                case ActionForCow.TakeMilk:
+                    TakeMilk((Cow)cow);
                     break;
-                case Action.DoNothing:
+                case ActionForCow.DoNothing:
                     DoNothing();
                     break;
                 default:
@@ -71,7 +95,7 @@ namespace Farm
             }
         }
 
-        public void Feed()
+        public void Feed(Animal cow)
         {
             int maxForage = cow.MaxHealth - cow.CurrentHealth;
             Console.WriteLine("Вы можете покормить корову на: ");
@@ -94,14 +118,14 @@ namespace Farm
             }
         }
 
-        void TakeMilk()
+        void TakeMilk(Cow cow)
         {
             if (cow.Milk > 0)
             {
                 Console.WriteLine("Вы забрали молоко");
                 sumOfMilk++;
                 cow.GiveMilk();
-                Console.WriteLine("Оставшегося молока у коровы: {0}", cow.Milk);
+                Console.WriteLine("Оставшихся молока у коровы: {0}", cow.Milk);
             }
             else
             {
@@ -112,6 +136,14 @@ namespace Farm
         public void DoNothing()
         {
             Console.WriteLine("Курим в сторонке...");
+        }
+
+        public void ShowState()
+        {
+            foreach (var cow in cows)
+            {
+                cow.State();
+            }
         }
     }
 }

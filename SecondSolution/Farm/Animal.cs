@@ -13,10 +13,10 @@ namespace Farm
         abstract public bool IsAlive { get; set; }
         abstract public int CurrentHealth { get; set; }
 
-        
-
         abstract public void Eat(int forage);
 
         abstract public bool IsAliveMethod();
+
+        abstract public string State();
     }
 }
